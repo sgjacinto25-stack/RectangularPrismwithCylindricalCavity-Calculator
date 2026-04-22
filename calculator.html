@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Volume Calculator</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f2f2f2;
+            padding: 40px;
+        }
+
+        input {
+            display: block;
+            margin: 8px 0;
+            padding: 6px;
+            width: 200px;
+        }
+
+        button {
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            background: white;
+            border: 1px solid black;
+            width: 250px;
+        }
+    </style>
+</head>
+
+<body>
+
+<h2>Rectangular Prism + Cylindrical Cavity Calculator</h2>
+
+<label>Length</label>
+<input type="number" id="length">
+
+<label>Width</label>
+<input type="number" id="width">
+
+<label>Height</label>
+<input type="number" id="height">
+
+<label>Radius (hole)</label>
+<input type="number" id="radius">
+
+<label>Irregularity (%)</label>
+<input type="number" id="irregularity">
+
+<button onclick="calculate()">Calculate</button>
+<button onclick="clearAll()">Clear</button>
+
+<div id="result">Result will appear here</div>
+
+<script>
+function calculate() {
+    let L = parseFloat(document.getElementById("length").value);
+    let W = parseFloat(document.getElementById("width").value);
+    let H = parseFloat(document.getElementById("height").value);
+    let R = parseFloat(document.getElementById("radius").value) || 0;
+    let T = parseFloat(document.getElementById("irregularity").value) || 0;
+
+    if (!L || !W || !H) {
+        alert("Please enter valid dimensions.");
+        return;
+    }
+
+    let prismVolume = L * W * H;
+    let cylinderVolume = Math.PI * R * R * H;
+
+    let netVolume = prismVolume - cylinderVolume;
+    let finalVolume = netVolume * (1 - (T / 100));
+
+    if (finalVolume < 0) finalVolume = 0;
+
+    document.getElementById("result").innerHTML =
+        "Volume: " + finalVolume.toFixed(2) + " cm³";
+}
+
+function clearAll() {
+    document.getElementById("length").value = "";
+    document.getElementById("width").value = "";
+    document.getElementById("height").value = "";
+    document.getElementById("radius").value = "";
+    document.getElementById("irregularity").value = "";
+    document.getElementById("result").innerHTML = "Result will appear here";
+}
+</script>
+
+</body>
+</html>
