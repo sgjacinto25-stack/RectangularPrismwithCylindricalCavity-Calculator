@@ -1,59 +1,117 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Volume Calculator</title>
+    <title>Rectangular Prism with Cylindrical Cavity Volume Calculator</title>
+
     <style>
         body {
-            font-family: Arial;
-            background: #f2f2f2;
+            font-family: Arial, sans-serif;
+            background: #dfe9f3;
+            margin: 0;
             padding: 40px;
         }
 
-        input {
-            display: block;
-            margin: 8px 0;
-            padding: 6px;
-            width: 200px;
+        .box {
+            width: 380px;
+            margin: auto;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
         }
 
-        button {
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
             padding: 10px;
-            margin-top: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #bbb;
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .btn {
+            width: 48%;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .calculate {
+            background: #3498db;
+            color: white;
+        }
+
+        .clear {
+            background: #95a5a6;
+            color: white;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
         }
 
         #result {
             margin-top: 20px;
-            padding: 10px;
-            background: white;
-            border: 1px solid black;
-            width: 250px;
+            padding: 15px;
+            background: #f7f9fb;
+            border-left: 5px solid #3498db;
+            border-radius: 6px;
+            font-weight: bold;
+            color: #2c3e50;
+            text-align: center;
         }
     </style>
 </head>
 
 <body>
 
-<h2>Rectangular Prism + Cylindrical Cavity Calculator</h2>
+<div class="box">
 
-<label>Length</label>
-<input type="number" id="length">
+    <h2>Rectangular Prism with Cylindrical Cavity Volume Calculator</h2>
 
-<label>Width</label>
-<input type="number" id="width">
+    <label>Length (cm)</label>
+    <input type="number" id="length">
 
-<label>Height</label>
-<input type="number" id="height">
+    <label>Width (cm)</label>
+    <input type="number" id="width">
 
-<label>Radius (hole)</label>
-<input type="number" id="radius">
+    <label>Height (cm)</label>
+    <input type="number" id="height">
 
-<label>Irregularity (%)</label>
-<input type="number" id="irregularity">
+    <label>Radius of Cylindrical Hole (cm)</label>
+    <input type="number" id="radius">
 
-<button onclick="calculate()">Calculate</button>
-<button onclick="clearAll()">Clear</button>
+    <label>Irregularity Percentage (%)</label>
+    <input type="number" id="irregularity">
 
-<div id="result">Result will appear here</div>
+    <div class="buttons">
+        <button class="btn calculate" onclick="calculate()">Calculate</button>
+        <button class="btn clear" onclick="clearAll()">Clear</button>
+    </div>
+
+    <div id="result">
+        Final Volume will appear here
+    </div>
+
+</div>
 
 <script>
 function calculate() {
@@ -70,14 +128,15 @@ function calculate() {
 
     let prismVolume = L * W * H;
     let cylinderVolume = Math.PI * R * R * H;
-
     let netVolume = prismVolume - cylinderVolume;
-    let finalVolume = netVolume * (1 - (T / 100));
+    let finalVolume = netVolume * (1 - T / 100);
 
-    if (finalVolume < 0) finalVolume = 0;
+    if (finalVolume < 0) {
+        finalVolume = 0;
+    }
 
     document.getElementById("result").innerHTML =
-        "Volume: " + finalVolume.toFixed(2) + " cm³";
+        "Final Volume: " + finalVolume.toFixed(2) + " cm³";
 }
 
 function clearAll() {
@@ -86,9 +145,11 @@ function clearAll() {
     document.getElementById("height").value = "";
     document.getElementById("radius").value = "";
     document.getElementById("irregularity").value = "";
-    document.getElementById("result").innerHTML = "Result will appear here";
+    document.getElementById("result").innerHTML =
+        "Final Volume will appear here";
 }
 </script>
 
 </body>
+</html>
 </html>
